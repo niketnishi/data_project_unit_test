@@ -1,6 +1,6 @@
 from matplotlib import pyplot as plt
 from matplotlib import patches as mpatches
-from collections import Counter, OrderedDict
+from collections import OrderedDict
 import sys
 import csv
 
@@ -120,7 +120,8 @@ def match_2015_eco_bowler(match_url, delivery_url):
         if match['season'] == '2015':
             lst_match_id.append(match['id'])
     match_handle.close()
-    for delivery in csv.DictReader(delivery_handle):      # Creating "bowler_dict = {'bowler': {'no_of_balls': val, 'tot_runs_given': val}}" in this format
+    # Creating "bowler_dict = {'bowler': {'no_of_balls': val, 'tot_runs_given': val}}" in this format
+    for delivery in csv.DictReader(delivery_handle):
         if delivery['match_id'] in lst_match_id:
             if delivery['bowler'] not in economical_bowler:
                 economical_bowler[delivery['bowler']] = {}
@@ -132,9 +133,10 @@ def match_2015_eco_bowler(match_url, delivery_url):
     for bowler in economical_bowler:
         economical_bowler[bowler] = round(economical_bowler[bowler]['total_runs_given'] * 6 /
                                           economical_bowler[bowler]['no_of_balls'], 1)      # Calculating economic rate
+        # Creating a dictionary {economic_rate: list of bowlers}
         if economical_bowler[bowler] not in final_economical_bowler:
             final_economical_bowler[economical_bowler[bowler]] = []
-            final_economical_bowler[economical_bowler[bowler]].append(bowler)       # Creating a dictionary {economic_rate: list of bowlers}
+            final_economical_bowler[economical_bowler[bowler]].append(bowler)
     final_economical_bowler = OrderedDict(sorted(final_economical_bowler.items()))
     for bowler_lst in final_economical_bowler.values():
         lst_of_bowlers += bowler_lst
