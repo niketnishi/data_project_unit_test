@@ -40,7 +40,6 @@ def stacked_bar_chart(match_url):
     match_handle.close()
     data_dict = OrderedDict(sorted(data_dict.items()))
     # print(data_dict)
-    # print(lst_of_winning_team)
     return [data_dict, lst_of_winning_team]
 
 
