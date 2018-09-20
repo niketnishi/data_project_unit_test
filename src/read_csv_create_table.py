@@ -23,7 +23,7 @@ def drop_table(db_name, table_name):
     cur = conn_obj.cursor()
     try:
         cur.execute('DROP TABLE {};'.format(table_name))
-        cur.close()
+        conn_obj.close()
     except Exception as ex:
         print(ex)
 
@@ -80,7 +80,7 @@ def drop_database(db_name):
     cur = conn_obj.cursor()
     try:
         cur.execute('DROP DATABASE {};'.format(db_name))
-        cur.close()
+        conn_obj.close()
     except Exception as ex:
         print(ex)
 
@@ -90,7 +90,7 @@ def create_database(db_name):
     cur = conn_obj.cursor()
     try:
         cur.execute('CREATE DATABASE {};'.format(db_name))
-        cur.close()
+        conn_obj.close()
     except Exception as ex:
         print(ex)
         # sys.exit(ex)
