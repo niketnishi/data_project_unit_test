@@ -33,9 +33,9 @@ def stacked_bar_chart(db_name, match_table_name):
     data_dict, lst_of_winning_team = {}, []
     conn_obj = establish_connection(db_name)
     cursor = conn_obj.cursor()
-    cursor.execute('SELECT season, winner FROM {};'.format(match_table_name))
+    cursor.execute('SELECT season, winner, COUNT(winner) FROM {} GROUP BY winner, season;'.format(match_table_name))
     for match in cursor:
-        season, winner = 0, 1
+        season, winner, win_frequency = 0, 1, 2
         if match[season] not in data_dict:
             data_dict[match[season]] = {}
         if match[winner] != "":
@@ -43,7 +43,7 @@ def stacked_bar_chart(db_name, match_table_name):
                 data_dict[match[season]][match[winner]] = 0
                 if match[winner] not in lst_of_winning_team:
                     lst_of_winning_team.append(match[winner])
-            data_dict[match[season]][match[winner]] += 1
+            data_dict[match[season]][match[winner]] += int(match[win_frequency])
     conn_obj.close()
     data_dict = OrderedDict(sorted(data_dict.items()))
     # print(data_dict)
