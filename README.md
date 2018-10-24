@@ -1,5 +1,6 @@
 ### About 
-This project imports match and delivery data from csv file and loads into the database and process the data 
+This project imports match and delivery data from csv file and loads into the Mysql database. And we query database
+tables using mysql connector.
 
 #### Install and configure Mysql
 ```
